@@ -1,0 +1,25 @@
+#!/usr/bin/python3
+
+import socket
+
+def scan_port(target_host, port):
+    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    sock.settimeout(5)
+
+    try:
+        sock.connect((target_host, port))
+        print(f"[+] port {port} is open")
+    except socket.error:
+        pass
+    finally:
+        sock.close()
+
+if __name__ == "__main__":
+    target_host = input("Enter the target host: ")
+    start_port = int(input("Enter the starting port: "))
+    end_port = int(input("Enter the ending port: "))
+
+    print(f"Scanning {target_host} for open ports...")
+
+    for port in range(start_port, end_port + 1):
+        scan_port(target_host, port)
